@@ -371,8 +371,8 @@ I was the only one to solve <code>ByBreizh</code> (the hardest one) and that pus
 <blockquote>
 <p>The <code>ecrecover()</code> function allows us to retrieve the signer of a message by providing the signed message and the signature.</p></blockquote>
 <blockquote>
-<p><strong>Malleability attack</strong>
-We can already identify a vulnerability in how <code>ecrecover()</code> is used. This function is susceptible to a <strong>malleability</strong> attack, meaning we can provide two different signatures that recover the same address. We&rsquo;ll explore this in more detail later.</p></blockquote>
+<p><strong>Malleability attack</strong></p>
+<p>We can already identify a vulnerability in how <code>ecrecover()</code> is used. This function is susceptible to a <strong>malleability</strong> attack, meaning we can provide two different signatures that recover the same address. We&rsquo;ll explore this in more detail later.</p></blockquote>
 <p>From this, we know the following :</p>
 <ul>
 <li>We need to find a way to become the contract owner (e.g., by retrieving its private key).</li>
@@ -387,7 +387,7 @@ We can already identify a vulnerability in how <code>ecrecover()</code> is used.
 <p>From the challenge&rsquo;s description, we know that we are looking for a file at <code>/home/crepesmaster/notes.txt</code>.</p>
 <p>At this step, I was completely goofing around like an idiot, so I called my web guy, @Zleb, for help. I had forgotten to check the website&rsquo;s HTML, where a <code>display: none</code> form was hidden. This form allowed users to retrieve files directly from the filesystem.</p>
 <p>All I had to do was enter <code>/home/crepesmaster/notes.txt</code> into the form to retrieve the file.</p>
-<p><strong>notes.txt:</strong></p>
+<p><code>notes.txt</code></p>
 <pre tabindex="0"><code>Quels nullos ces bretons, et dire qu&#39;ils avaient 5 signataires et qu&#39;ils sont tous tombés dans le panneau...
 
 Il faut que je mette ma clé privée quelque part sinon je vais la perdre.
@@ -536,8 +536,8 @@ And of course, there is no bytecode at that address.</p>
 <p>But hey, it doesn&rsquo;t require two different signers! And the <code>ecrecover()</code> function used is vulnerable to malleability attacks.</p>
 <h2 id="-step-5--malleability-attack">💥 Step 5 : Malleability attack</h2>
 <blockquote>
-<p><strong>Malleability attack</strong>
-There is a quite famous vulnerability that makes <code>ecrecover()</code> recover the same signer with two different signatures.<br>
+<p><strong>Malleability attack</strong></p>
+<p>There is a quite famous vulnerability that makes <code>ecrecover()</code> recover the same signer with two different signatures.<br>
 I won&rsquo;t dig into the cryptographic reasons behind the concept, but basically, a signature is based on three variables:</p>
 <ul>
 <li><code>r</code> (32 bytes)</li>
