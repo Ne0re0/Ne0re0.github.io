@@ -1,6 +1,6 @@
 +++
 date = '2025-03-17T15:01:20+01:00'
-draft = true
+draft = false
 title = 'WriteUp - Breizh CTF 2025 - Blockchain - ByBreizh'
 tags = ["Blockchain", "BreizhCTF", "WriteUp"]
 +++
