@@ -169,6 +169,7 @@ To call that function, we need to unlock the vault, which requires calling `auth
 > The `ecrecover()` function allows us to retrieve the signer of a message by providing the signed message and the signature.
 
 > **Malleability attack**
+>
 > We can already identify a vulnerability in how `ecrecover()` is used. This function is susceptible to a **malleability** attack, meaning we can provide two different signatures that recover the same address. We'll explore this in more detail later.
 > 
 
@@ -191,7 +192,7 @@ At this step, I was completely goofing around like an idiot, so I called my web 
 
 All I had to do was enter `/home/crepesmaster/notes.txt` into the form to retrieve the file.
 
-**notes.txt:**
+`notes.txt`
 ```
 Quels nullos ces bretons, et dire qu'ils avaient 5 signataires et qu'ils sont tous tombés dans le panneau...
 
@@ -378,6 +379,7 @@ But hey, it doesn't require two different signers! And the `ecrecover()` functio
 ## 💥 Step 5 : Malleability attack
 
 > **Malleability attack**
+>
 > There is a quite famous vulnerability that makes `ecrecover()` recover the same signer with two different signatures.  
 > I won't dig into the cryptographic reasons behind the concept, but basically, a signature is based on three variables:
 > - `r` (32 bytes)

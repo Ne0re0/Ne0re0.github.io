@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<meta name="color-scheme" content="dark light">
+<meta name="description" content="" />
+<meta name="author" content="">
+<meta name="keywords" content="Blockchain, BreizhCTF, WriteUp">
+
+<link rel="canonical" href="https://blog.neoreo.fr/posts/writeups/writeup-bzhctf2025-blockchain-bybreizh/" /><!-- open graph --><meta property="og:type" content="article" />
+<meta property="og:description" content="" />
+<meta property="og:title" content="WriteUp - Breizh CTF 2025 - Blockchain - ByBreizh" />
+<meta property="og:site_name" content="Neoreo" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:url" content="https://blog.neoreo.fr/posts/writeups/writeup-bzhctf2025-blockchain-bybreizh/" />
+<meta property="og:locale" content="en" /><meta property="article:published_time" content="2025-03-17" /><meta property="article:modified_time" content="2025-03-17" /><meta property="article:tag" content="Blockchain" /><meta property="article:tag" content="BreizhCTF" /><meta property="article:tag" content="WriteUp" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="WriteUp - Breizh CTF 2025 - Blockchain - ByBreizh | Neoreo" />
+<meta name="twitter:description" content="" />
+<meta name="twitter:domain" content="https://blog.neoreo.fr/posts/writeups/writeup-bzhctf2025-blockchain-bybreizh/" />
+
+<title>WriteUp - Breizh CTF 2025 - Blockchain - ByBreizh | Neoreo</title>
+
+<link rel="icon" href="https://blog.neoreo.fr/favicon.ico"><!-- Stylesheets ---><link
+          rel="stylesheet"
+          href="/css/style.min.9970e17b534a082dcf1645df2b5d7d4af0d2d6e50b217915a5cb4ce7a729b3fd.css"
+          integrity="sha256-mXDhe1NKCC3PFkXfK119SvDS1uULIXkVpctM56cps/0="
+          crossorigin="anonymous" /><!-- Script --><script src="/js/main.63585bc5794edcd24854a2689ba8657b91d0641acf0f2af744b363d1a347ee3b.js" integrity="sha256-Y1hbxXlO3NJIVKJom6hle5HQZBrPDyr3RLNj0aNH7js=" crossorigin="anonymous"></script><!-- Components -->
+</head>
+<body class="min-h-screen">
+  <div id="fluidity-theme-container">
+    <header class="relative z-50"><div
+  class="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-md border-b border-blue-100 dark:border-blue-950 shadow-sm">
+  <div class="container mx-auto">
+    <div class="flex justify-between items-center py-5 px-4">
+      <div class="text-2xl">
+        <a href="https://blog.neoreo.fr/" class="flex items-center gap-2"><span class="font-semibold relative group">
+            <span
+              class="bg-clip-text text-transparent bg-gradient-to-r 
+              from-blue-600 via-cyan-500 to-blue-500
+              dark:from-blue-400 dark:via-cyan-400 dark:to-blue-300
+              hover:from-blue-500 hover:via-cyan-400 hover:to-blue-400
+              dark:hover:from-blue-300 dark:hover:via-cyan-300 dark:hover:to-blue-200
+              transition-all duration-300">Neoreo</span>
+            <span
+              class="absolute -bottom-0.5 left-0 w-full h-[4px] 
+              bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent
+              dark:via-cyan-400/20
+              transform scale-x-0 group-hover:scale-x-100
+              transition-transform duration-500 ease-out
+              blur-[0.5px]"></span>
+          </span>
+        </a>
+      </div>
+
+      <div class="flex relative items-center gap-0.5"><nav class="relative isolate" role="navigation">
+    <ul class="hidden md:flex items-center gap-2"><li class="relative group">
+      <a
+        class="flex items-center relative px-4 py-2.5 rounded-lg text-base font-medium bg-transparent text-neutral-700 dark:text-neutral-200 hover:text-sky-600 dark:hover:text-sky-300 hover:bg-sky-50/80 dark:hover:bg-sky-900/20 active:bg-sky-100 dark:active:bg-sky-900/30 transform-gpu transition-all duration-300 ease-in-out motion-safe:hover:scale-[1.02] before:absolute before:inset-0 before:rounded-lg before:bg-gradient-to-br before:from-transparent before:to-transparent before:opacity-0 hover:before:from-sky-50/50 hover:before:to-sky-100/50 dark:hover:before:from-sky-900/30 dark:hover:before:to-sky-800/30 before:transition-opacity before:duration-300" href="/" title="Neoreo">Home</a></li><li class="relative group">
+      <a
+        class="flex items-center relative px-4 py-2.5 rounded-lg text-base font-medium bg-transparent text-neutral-700 dark:text-neutral-200 hover:text-sky-600 dark:hover:text-sky-300 hover:bg-sky-50/80 dark:hover:bg-sky-900/20 active:bg-sky-100 dark:active:bg-sky-900/30 transform-gpu transition-all duration-300 ease-in-out motion-safe:hover:scale-[1.02] before:absolute before:inset-0 before:rounded-lg before:bg-gradient-to-br before:from-transparent before:to-transparent before:opacity-0 hover:before:from-sky-50/50 hover:before:to-sky-100/50 dark:hover:before:from-sky-900/30 dark:hover:before:to-sky-800/30 before:transition-opacity before:duration-300 ancestor text-sky-600 dark:text-sky-300 font-semibold" aria-current="true" href="/posts/" title="Posts">Posts</a></li><li class="relative group">
+      <a
+        class="flex items-center relative px-4 py-2.5 rounded-lg text-base font-medium bg-transparent text-neutral-700 dark:text-neutral-200 hover:text-sky-600 dark:hover:text-sky-300 hover:bg-sky-50/80 dark:hover:bg-sky-900/20 active:bg-sky-100 dark:active:bg-sky-900/30 transform-gpu transition-all duration-300 ease-in-out motion-safe:hover:scale-[1.02] before:absolute before:inset-0 before:rounded-lg before:bg-gradient-to-br before:from-transparent before:to-transparent before:opacity-0 hover:before:from-sky-50/50 hover:before:to-sky-100/50 dark:hover:before:from-sky-900/30 dark:hover:before:to-sky-800/30 before:transition-opacity before:duration-300" href="/tags/" title="Tags">Tags</a></li></ul>
+
+    
+    <div class="relative md:hidden " dir="rtl">
+      <ul
+        id="mobile-menu"
+        class="absolute top-0 -right-4 py-1 w-48
+          transform opacity-0 scale-95 
+          transition-all duration-200 ease-out
+          bg-white dark:bg-neutral-900
+          border border-neutral-200/80 dark:border-neutral-800/80
+          rounded-xl divide-y divide-neutral-100 dark:divide-neutral-900/50
+          shadow-lg shadow-neutral-100/20 dark:shadow-neutral-900/30
+          backdrop-blur-md text-left	
+          z-50"><li class="relative group">
+      <a
+        class="block px-4 py-2 text-sm text-neutral-700 dark:text-neutral-200 hover:bg-neutral-100/80 dark:hover:bg-neutral-800/80 active:bg-neutral-200 dark:active:bg-neutral-700 transition-colors duration-200" href="/" title="Neoreo">Home</a></li><li class="relative group">
+      <a
+        class="block px-4 py-2 text-sm text-neutral-700 dark:text-neutral-200 hover:bg-neutral-100/80 dark:hover:bg-neutral-800/80 active:bg-neutral-200 dark:active:bg-neutral-700 transition-colors duration-200 ancestor text-sky-600 dark:text-sky-300 font-semibold" aria-current="true" href="/posts/" title="Posts">Posts</a></li><li class="relative group">
+      <a
+        class="block px-4 py-2 text-sm text-neutral-700 dark:text-neutral-200 hover:bg-neutral-100/80 dark:hover:bg-neutral-800/80 active:bg-neutral-200 dark:active:bg-neutral-700 transition-colors duration-200" href="/tags/" title="Tags">Tags</a></li></ul>
+    </div>
+  </nav><button id="mobile-menu-button" class="fluidity-header-icon block md:hidden" aria-label="Toggle menu" aria-expanded="false"><svg
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="currentColor"
+  xmlns="http://www.w3.org/2000/svg"ZgotmplZZgotmplZ><path d="M3 4H21V6H3V4ZM3 11H21V13H3V11ZM3 18H21V20H3V18Z"></path></svg>
+</button>
+        <button id="theme-toggle" aria-label="Toggle theme" class="fluidity-header-icon">
+          <div id="theme-toggle-dark-icon" class="hidden"><svg
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="currentColor"
+  xmlns="http://www.w3.org/2000/svg"ZgotmplZZgotmplZ><path
+      d="M20.0258 17.0014C17.2639 21.7851 11.1471 23.4241 6.3634 20.6622C5.06068 19.9101 3.964 18.8926 3.12872 17.6797C2.84945 17.2741 3.0301 16.7141 3.49369 16.5482C7.26112 15.1997 9.27892 13.6372 10.4498 11.4021C11.6825 9.04908 12.001 6.47162 11.1387 2.93862C11.0195 2.45008 11.4053 1.98492 11.9075 2.01186C13.4645 2.09539 14.9856 2.54263 16.3649 3.33903C21.1486 6.10088 22.7876 12.2177 20.0258 17.0014ZM11.7785 12.0981C10.5272 14.4867 8.46706 16.1972 4.96104 17.597C5.5693 18.2929 6.29275 18.8894 7.1134 19.3632C11.1796 21.7108 16.3791 20.3176 18.7267 16.2514C21.0744 12.1852 19.6812 6.98571 15.6149 4.63807C14.7379 4.1317 13.7951 3.79168 12.8228 3.62253C13.4699 7.00652 13.0525 9.66622 11.7785 12.0981Z" /></svg>
+</div>
+          <div id="theme-toggle-light-icon" class="hidden"><svg
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="currentColor"
+  xmlns="http://www.w3.org/2000/svg"ZgotmplZZgotmplZ><path
+      d="M12 2C12.4142 2 12.75 2.33579 12.75 2.75V4.25C12.75 4.66421 12.4142 5 12 5C11.5858 5 11.25 4.66421 11.25 4.25V2.75C11.25 2.33579 11.5858 2 12 2ZM12 17C14.7614 17 17 14.7614 17 12C17 9.23858 14.7614 7 12 7C9.23858 7 7 9.23858 7 12C7 14.7614 9.23858 17 12 17ZM12 15.5C10.067 15.5 8.5 13.933 8.5 12C8.5 10.067 10.067 8.5 12 8.5C13.933 8.5 15.5 10.067 15.5 12C15.5 13.933 13.933 15.5 12 15.5ZM21.25 12.75C21.6642 12.75 22 12.4142 22 12C22 11.5858 21.6642 11.25 21.25 11.25H19.75C19.3358 11.25 19 11.5858 19 12C19 12.4142 19.3358 12.75 19.75 12.75H21.25ZM12 19C12.4142 19 12.75 19.3358 12.75 19.75V21.25C12.75 21.6642 12.4142 22 12 22C11.5858 22 11.25 21.6642 11.25 21.25V19.75C11.25 19.3358 11.5858 19 12 19ZM4.25 12.75C4.66421 12.75 5 12.4142 5 12C5 11.5858 4.66421 11.25 4.25 11.25H2.75C2.33579 11.25 2 11.5858 2 12C2 12.4142 2.33579 12.75 2.75 12.75H4.25ZM4.21967 4.22004C4.51256 3.92715 4.98744 3.92715 5.28033 4.22004L6.78033 5.72004C7.07322 6.01294 7.07322 6.48781 6.78033 6.7807C6.48744 7.0736 6.01256 7.0736 5.71967 6.7807L4.21967 5.2807C3.92678 4.98781 3.92678 4.51294 4.21967 4.22004ZM5.28033 19.7807C4.98744 20.0736 4.51256 20.0736 4.21967 19.7807C3.92678 19.4878 3.92678 19.0129 4.21967 18.72L5.71967 17.22C6.01256 16.9271 6.48744 16.9271 6.78033 17.22C7.07322 17.5129 7.07322 17.9878 6.78033 18.2807L5.28033 19.7807ZM19.7803 4.22004C19.4874 3.92715 19.0126 3.92715 18.7197 4.22004L17.2197 5.72004C16.9268 6.01294 16.9268 6.48781 17.2197 6.7807C17.5126 7.0736 17.9874 7.0736 18.2803 6.7807L19.7803 5.2807C20.0732 4.98781 20.0732 4.51294 19.7803 4.22004ZM18.7197 19.7807C19.0126 20.0736 19.4874 20.0736 19.7803 19.7807C20.0732 19.4878 20.0732 19.0129 19.7803 18.72L18.2803 17.22C17.9874 16.9271 17.5126 16.9271 17.2197 17.22C16.9268 17.5129 16.9268 17.9878 17.2197 18.2807L18.7197 19.7807Z" /></svg>
+</div>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+    <main class="flex-1 relative z-[1]"><div class="container mt-1 mx-auto px-2 py-2 md:px-2 md:py-4 lg:px-4 lg:py-8 min-h-screen">
+    
+    <header class="md:mb-4 lg:mb-8">
+      <h1 class="fluidity-page-title text-4xl group mb-2 md:mb-4 lg:mb-8">
+        <span class="relative inline-block">
+          WriteUp - Breizh CTF 2025 - Blockchain - ByBreizh
+          <span class="fluidity-page-title-line"></span>
+        </span>
+      </h1><div
+  class="relative overflow-hidden
+            bg-gradient-to-br from-white/95 to-neutral-50/90
+            dark:from-neutral-900/95 dark:to-neutral-800/90
+            border border-neutral-200/80 dark:border-neutral-700/80
+            rounded-xl p-2 md:p-3 lg:p-6
+            backdrop-blur-md
+            shadow-lg shadow-sky-100/20 dark:shadow-sky-900/20
+            transition-all duration-300 ease-out mb-4">
+  
+  <div class="flex flex-wrap gap-6">
+    <div class="flex flex-wrap items-center gap-5 text-neutral-700 dark:text-neutral-300">
+      <div class="flex items-center gap-2 group">
+        <span
+          class="text-sky-600 dark:text-sky-400 transition-transform duration-300
+                      group-hover:scale-110"><svg
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="currentColor"
+  xmlns="http://www.w3.org/2000/svg"ZgotmplZZgotmplZ><path
+      d="M17.75 3C19.5449 3 21 4.45507 21 6.25V17.75C21 19.5449 19.5449 21 17.75 21H6.25C4.45507 21 3 19.5449 3 17.75V6.25C3 4.45507 4.45507 3 6.25 3H17.75ZM19.5 8.5H4.5V17.75C4.5 18.7165 5.2835 19.5 6.25 19.5H17.75C18.7165 19.5 19.5 18.7165 19.5 17.75V8.5ZM7.75 14.5C8.44036 14.5 9 15.0596 9 15.75C9 16.4404 8.44036 17 7.75 17C7.05964 17 6.5 16.4404 6.5 15.75C6.5 15.0596 7.05964 14.5 7.75 14.5ZM12 14.5C12.6904 14.5 13.25 15.0596 13.25 15.75C13.25 16.4404 12.6904 17 12 17C11.3096 17 10.75 16.4404 10.75 15.75C10.75 15.0596 11.3096 14.5 12 14.5ZM7.75 10.5C8.44036 10.5 9 11.0596 9 11.75C9 12.4404 8.44036 13 7.75 13C7.05964 13 6.5 12.4404 6.5 11.75C6.5 11.0596 7.05964 10.5 7.75 10.5ZM12 10.5C12.6904 10.5 13.25 11.0596 13.25 11.75C13.25 12.4404 12.6904 13 12 13C11.3096 13 10.75 12.4404 10.75 11.75C10.75 11.0596 11.3096 10.5 12 10.5ZM16.25 10.5C16.9404 10.5 17.5 11.0596 17.5 11.75C17.5 12.4404 16.9404 13 16.25 13C15.5596 13 15 12.4404 15 11.75C15 11.0596 15.5596 10.5 16.25 10.5ZM17.75 4.5H6.25C5.2835 4.5 4.5 5.2835 4.5 6.25V7H19.5V6.25C19.5 5.2835 18.7165 4.5 17.75 4.5Z" /></svg>
+</span>
+        <time
+          datetime="2025-03-17T15:01:20&#43;01:00"
+          title="published"
+          class="text-sm group-hover:text-sky-600 dark:group-hover:text-sky-400
+                      transition-colors duration-200">
+          March 17, 2025
+        </time>
+      </div>
+
+      
+
+
+      <div class="flex items-center gap-2 group">
+        <span
+          class="text-sky-600 dark:text-sky-400 transition-transform duration-300
+                      group-hover:scale-110"><svg
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="currentColor"
+  xmlns="http://www.w3.org/2000/svg"ZgotmplZZgotmplZ><path
+      d="M12 5C16.6944 5 20.5 8.80558 20.5 13.5C20.5 18.1944 16.6944 22 12 22C7.30558 22 3.5 18.1944 3.5 13.5C3.5 8.80558 7.30558 5 12 5ZM12 6.5C8.13401 6.5 5 9.63401 5 13.5C5 17.366 8.13401 20.5 12 20.5C15.866 20.5 19 17.366 19 13.5C19 9.63401 15.866 6.5 12 6.5ZM12 8C12.3797 8 12.6935 8.28215 12.7432 8.64823L12.75 8.75V13.25C12.75 13.6642 12.4142 14 12 14C11.6203 14 11.3065 13.7178 11.2568 13.3518L11.25 13.25V8.75C11.25 8.33579 11.5858 8 12 8ZM19.1472 5.11371L19.2298 5.17355L20.3882 6.13773C20.7066 6.40272 20.7498 6.87562 20.4849 7.19398C20.2419 7.48581 19.8243 7.54649 19.5112 7.35047L19.4286 7.29063L18.2702 6.32645C17.9518 6.06146 17.9086 5.58856 18.1735 5.2702C18.4165 4.97837 18.8341 4.91769 19.1472 5.11371ZM14.25 2.5C14.6642 2.5 15 2.83579 15 3.25C15 3.6297 14.7178 3.94349 14.3518 3.99315L14.25 4H9.75C9.33579 4 9 3.66421 9 3.25C9 2.8703 9.28215 2.55651 9.64823 2.50685L9.75 2.5H14.25Z" /></svg>
+</span>
+        <span
+          class="text-sm group-hover:text-sky-600 dark:group-hover:text-sky-400
+                      transition-colors duration-200">
+          10 mins to read
+        </span>
+      </div></div>
+  </div>
+
+  <div class="mt-4 pt-4 border-t border-neutral-200/80 dark:border-neutral-700/80"></div>
+    <div class="flex flex-wrap gap-2 items-center group">
+      <span
+        class="text-sky-600 dark:text-sky-400 transition-transform duration-300
+                                          group-hover:scale-110"><svg
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="currentColor"
+  xmlns="http://www.w3.org/2000/svg"ZgotmplZZgotmplZ><path
+      d="M17.5 6.5C17.5 7.19036 16.9404 7.75 16.25 7.75C15.5596 7.75 15 7.19036 15 6.5C15 5.80964 15.5596 5.25 16.25 5.25C16.9404 5.25 17.5 5.80964 17.5 6.5ZM10.5076 2.89817C11.1121 2.32164 11.9154 2 12.7507 2H18.2496C19.7684 2 20.9996 3.23122 20.9996 4.75V9.70264C20.9996 10.5737 20.65 11.4083 20.0291 12.0192L13.0837 18.8535C12.2045 19.7186 10.7927 19.7146 9.91845 18.8445L3.66184 12.6177C2.76479 11.7249 2.78029 10.2682 3.69613 9.39468L10.5076 2.89817ZM12.7507 3.5C12.3009 3.5 11.8684 3.67319 11.5429 3.98363L4.73139 10.4801C4.42611 10.7713 4.42095 11.2569 4.71996 11.5545L10.9766 17.7813C11.268 18.0713 11.7386 18.0727 12.0317 17.7843L18.9771 10.95C19.3114 10.621 19.4996 10.1717 19.4996 9.70264V4.75C19.4996 4.05964 18.94 3.5 18.2496 3.5H12.7507ZM20.7309 12.732L19.2558 14.1834C19.216 14.2377 19.1713 14.2894 19.1217 14.3381L13.7883 19.5665C13.5787 19.772 13.3482 19.9434 13.1037 20.0807C11.8661 20.7802 10.2687 20.6035 9.21341 19.5532L7.28204 17.6311L4.87078 15.2451C4.83207 15.2068 4.79639 15.1666 4.76374 15.1248L3.13495 13.5037C2.82374 14.4607 3.05086 15.5545 3.81573 16.3113L8.17213 20.6221C10.0168 22.4475 12.9851 22.4544 14.8384 20.6377L20.1717 15.4093C20.9449 14.6514 21.1728 13.5543 20.8628 12.5962C20.82 12.6423 20.776 12.6876 20.7309 12.732Z" /></svg>
+</span><a
+      href="/tags/blockchain/"
+      class="fluidity-tag inline-flex items-center">
+      Blockchain
+    </a><a
+      href="/tags/breizhctf/"
+      class="fluidity-tag inline-flex items-center">
+      BreizhCTF
+    </a><a
+      href="/tags/writeup/"
+      class="fluidity-tag inline-flex items-center">
+      WriteUp
+    </a></div>
+  <div class="fluidity-decorative-gradient-line"></div>
+</div>
+</header>
+
+    
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-8">
+      
+      <div id="main-content" class="col-span-1 lg:col-span-2 order-2 lg:order-1">
+        <div
+          class="relative overflow-hidden
+                bg-gradient-to-br from-white/95 to-neutral-50/90
+                dark:from-neutral-900/95 dark:to-neutral-800/90
+                rounded-xl px-4 md:px-8 py-3 md:py-6
+                border border-neutral-200/80 dark:border-neutral-700/80
+                backdrop-blur-md
+                shadow-lg shadow-sky-100/20 dark:shadow-sky-900/20
+                transition-all duration-300 ease-out">
+          <article class="prose prose-neutral dark:prose-invert">
+            <table>
+  <thead>
+      <tr>
+          <th>Difficulty</th>
+          <th>Hard</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Flaggerz</td>
+          <td>1/120</td>
+      </tr>
+      <tr>
+          <td>Author</td>
+          <td>K.L.M. (@clemhate)</td>
+      </tr>
+  </tbody>
+</table>
+<p>This weekend, I played the BreizhCTF with <code>Not an Apt</code> and first blooded all challenges made by <code>K.L.M.</code> from the <code>Blockchain</code> category. 🩸<br>
+I was the only one to solve <code>ByBreizh</code> (the hardest one) and that pushes me to do this writeup.</p>
+<p>Last year, we ended <code>110/120</code> but, this time, we proudly ended <code>10/120</code> thanks to the <code>blockchain</code> category. 🚀</p>
+<p><strong>So, keep pwning !</strong></p>
+<h2 id="-challenges-description">📝 Challenge&rsquo;s description</h2>
+<p>Oh non, la plateforme ByBreizh a été hackée par un Normand nommé CrêpesMaster. Il a volé toutes les crypto-monnaies des utilisateurs. Il aurait apparement créé une plateforme nommée ByNormandie pour se moquer de nous ! D&rsquo;après les informations que nous avons, il serait possible de récupérer la clé privée de son portefeuille et d&rsquo;accéder à son contrat intelligent lui permettant de gérer ses fonds. Nous avons besoin de vous, trouvez sa clé privée en exploitant son site web et récupérez les fonds volés en exploitant les contrats intelligents que vous trouverez ci-joint. (La factory est déjà déployée, à vous de la trouver :). La clé privée de CrêpesMaster est dans le fichier <code>/home/crepesmaster/notes.txt</code> sur le serveur web.</p>
+<h2 id="-steps">🔍 Steps</h2>
+<ol>
+<li>Retrieve <code>notes.txt</code> file from the website</li>
+<li>Retrieve the <code>Create2Factory</code> address</li>
+<li>Deploy the <code>Keyy</code> contract</li>
+<li>Retrieve allowed signers</li>
+<li>Sign a message and use a <code>malleability</code> attack to bypass checks</li>
+<li>Destroy the vault</li>
+</ol>
+<h2 id="-given-files">📃 Given files</h2>
+<p><code>Challenge.sol</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// SPDX-License-Identifier: MIT
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">pragma</span> <span class="nx">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">IKey</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nx">Key</span><span class="p">()</span> <span class="nx">external</span> <span class="nx">view</span> <span class="nx">returns</span> <span class="p">(</span><span class="nx">string</span> <span class="nx">memory</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">contract</span> <span class="nx">Challenge</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">address</span> <span class="kr">public</span> <span class="nx">owner</span> <span class="o">=</span> <span class="mh">0xa24b3f601C29a9d26af5C151D172ea716a23dF1c</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">address</span> <span class="kr">public</span> <span class="nx">keyContract</span> <span class="o">=</span> <span class="mh">0xDbCA158868a2701A82Fa2C7748038363eEFE07cf</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">address</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="kr">public</span> <span class="nx">authorizedSigners</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">bool</span> <span class="kr">public</span> <span class="nx">unlocked</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">bool</span> <span class="kr">public</span> <span class="nx">solved</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">mapping</span><span class="p">(</span><span class="nx">bytes32</span> <span class="p">=&gt;</span> <span class="nx">bool</span><span class="p">)</span> <span class="kr">public</span> <span class="nx">usedSignatures</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">event</span> <span class="nx">VaultUnlocked</span><span class="p">(</span><span class="nx">address</span> <span class="nx">indexed</span> <span class="nx">by</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">event</span> <span class="nx">VaultDestroyed</span><span class="p">(</span><span class="nx">address</span> <span class="nx">indexed</span> <span class="nx">by</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">constructor</span><span class="p">(</span><span class="nx">address</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="nx">memory</span> <span class="nx">_signers</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="nx">uint</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">_signers</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">authorizedSigners</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">_signers</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">unlocked</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nx">authenticate</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">bytes32</span> <span class="nx">hash</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">uint8</span> <span class="nx">v1</span><span class="p">,</span> <span class="nx">bytes32</span> <span class="nx">r1</span><span class="p">,</span> <span class="nx">bytes32</span> <span class="nx">s1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">uint8</span> <span class="nx">v2</span><span class="p">,</span> <span class="nx">bytes32</span> <span class="nx">r2</span><span class="p">,</span> <span class="nx">bytes32</span> <span class="nx">s2</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="kr">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">require</span><span class="p">(</span><span class="o">!</span><span class="nx">unlocked</span><span class="p">,</span> <span class="s2">&#34;Vault already unlocked&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">require</span><span class="p">(</span><span class="nx">msg</span><span class="p">.</span><span class="nx">sender</span> <span class="o">==</span> <span class="nx">owner</span><span class="p">,</span> <span class="s2">&#34;Only owner can unlock the vault&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nx">string</span> <span class="nx">memory</span> <span class="nx">key</span> <span class="o">=</span> <span class="nx">IKey</span><span class="p">(</span><span class="nx">keyContract</span><span class="p">).</span><span class="nx">Key</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">require</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">keccak256</span><span class="p">(</span><span class="nx">abi</span><span class="p">.</span><span class="nx">encodePacked</span><span class="p">(</span><span class="s2">&#34;Normandie4ever&#34;</span><span class="p">))</span> <span class="o">==</span> <span class="nx">keccak256</span><span class="p">(</span><span class="nx">abi</span><span class="p">.</span><span class="nx">encodePacked</span><span class="p">(</span><span class="nx">key</span><span class="p">)),</span> 
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;Invalid Key contract&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nx">require</span><span class="p">(</span><span class="nx">abi</span><span class="p">.</span><span class="nx">encodePacked</span><span class="p">(</span><span class="nx">v1</span><span class="p">,</span> <span class="nx">r1</span><span class="p">,</span> <span class="nx">s1</span><span class="p">).</span><span class="nx">length</span> <span class="o">==</span> <span class="mi">65</span><span class="p">,</span> <span class="s2">&#34;Signature 1 must be 65 bytes&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">require</span><span class="p">(</span><span class="nx">abi</span><span class="p">.</span><span class="nx">encodePacked</span><span class="p">(</span><span class="nx">v2</span><span class="p">,</span> <span class="nx">r2</span><span class="p">,</span> <span class="nx">s2</span><span class="p">).</span><span class="nx">length</span> <span class="o">==</span> <span class="mi">65</span><span class="p">,</span> <span class="s2">&#34;Signature 2 must be 65 bytes&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nx">bytes32</span> <span class="nx">sig1Hash</span> <span class="o">=</span> <span class="nx">keccak256</span><span class="p">(</span><span class="nx">abi</span><span class="p">.</span><span class="nx">encodePacked</span><span class="p">(</span><span class="nx">v1</span><span class="p">,</span> <span class="nx">r1</span><span class="p">,</span> <span class="nx">s1</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">bytes32</span> <span class="nx">sig2Hash</span> <span class="o">=</span> <span class="nx">keccak256</span><span class="p">(</span><span class="nx">abi</span><span class="p">.</span><span class="nx">encodePacked</span><span class="p">(</span><span class="nx">v2</span><span class="p">,</span> <span class="nx">r2</span><span class="p">,</span> <span class="nx">s2</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nx">require</span><span class="p">(</span><span class="o">!</span><span class="nx">usedSignatures</span><span class="p">[</span><span class="nx">sig1Hash</span><span class="p">],</span> <span class="s2">&#34;Signature 1 already used&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">require</span><span class="p">(</span><span class="o">!</span><span class="nx">usedSignatures</span><span class="p">[</span><span class="nx">sig2Hash</span><span class="p">],</span> <span class="s2">&#34;Signature 2 already used&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nx">require</span><span class="p">(</span><span class="nx">sig1Hash</span> <span class="o">!=</span> <span class="nx">sig2Hash</span><span class="p">,</span> <span class="s2">&#34;Identical signatures not allowed&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nx">usedSignatures</span><span class="p">[</span><span class="nx">sig1Hash</span><span class="p">]</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">usedSignatures</span><span class="p">[</span><span class="nx">sig2Hash</span><span class="p">]</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nx">address</span> <span class="nx">signer1</span> <span class="o">=</span> <span class="nx">_recoverSigner</span><span class="p">(</span><span class="nx">hash</span><span class="p">,</span> <span class="nx">v1</span><span class="p">,</span> <span class="nx">r1</span><span class="p">,</span> <span class="nx">s1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">address</span> <span class="nx">signer2</span> <span class="o">=</span> <span class="nx">_recoverSigner</span><span class="p">(</span><span class="nx">hash</span><span class="p">,</span> <span class="nx">v2</span><span class="p">,</span> <span class="nx">r2</span><span class="p">,</span> <span class="nx">s2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nx">require</span><span class="p">(</span><span class="nx">_isAuthorized</span><span class="p">(</span><span class="nx">signer1</span><span class="p">),</span> <span class="s2">&#34;Signer1 not authorized&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">require</span><span class="p">(</span><span class="nx">_isAuthorized</span><span class="p">(</span><span class="nx">signer2</span><span class="p">),</span> <span class="s2">&#34;Signer2 not authorized&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nx">unlocked</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">emit</span> <span class="nx">VaultUnlocked</span><span class="p">(</span><span class="nx">msg</span><span class="p">.</span><span class="nx">sender</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nx">destroyVault</span><span class="p">(</span><span class="nx">address</span> <span class="nx">emergencyAddr</span><span class="p">)</span> <span class="kr">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// No self destruct but imagine it was here :))
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">require</span><span class="p">(</span><span class="nx">unlocked</span><span class="p">,</span> <span class="s2">&#34;Vault is locked&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">emit</span> <span class="nx">VaultDestroyed</span><span class="p">(</span><span class="nx">msg</span><span class="p">.</span><span class="nx">sender</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">payable</span><span class="p">(</span><span class="nx">emergencyAddr</span><span class="p">).</span><span class="nx">transfer</span><span class="p">(</span><span class="nx">address</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">balance</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">solved</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nx">isSolved</span><span class="p">()</span> <span class="kr">public</span> <span class="nx">view</span> <span class="nx">returns</span> <span class="p">(</span><span class="nx">bool</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">solved</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nx">_isAuthorized</span><span class="p">(</span><span class="nx">address</span> <span class="nx">signer</span><span class="p">)</span> <span class="nx">internal</span> <span class="nx">view</span> <span class="nx">returns</span> <span class="p">(</span><span class="nx">bool</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="nx">uint</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">authorizedSigners</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="nx">authorizedSigners</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">==</span> <span class="nx">signer</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nx">_recoverSigner</span><span class="p">(</span><span class="nx">bytes32</span> <span class="nx">hash</span><span class="p">,</span> <span class="nx">uint8</span> <span class="nx">v</span><span class="p">,</span> <span class="nx">bytes32</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">bytes32</span> <span class="nx">s</span><span class="p">)</span> <span class="nx">internal</span> <span class="nx">pure</span> <span class="nx">returns</span> <span class="p">(</span><span class="nx">address</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">ecrecover</span><span class="p">(</span><span class="nx">hash</span><span class="p">,</span> <span class="nx">v</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">s</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><code>factory.sol</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// SPDX-License-Identifier: MIT
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">pragma</span> <span class="nx">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">contract</span> <span class="nx">Create2Factory</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">event</span> <span class="nx">Deployed</span><span class="p">(</span><span class="nx">address</span> <span class="nx">addr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nx">deploy</span><span class="p">(</span><span class="nx">uint256</span> <span class="nx">amount</span><span class="p">,</span> <span class="nx">bytes32</span> <span class="nx">salt</span><span class="p">,</span> <span class="nx">bytes</span> <span class="nx">memory</span> <span class="nx">bytecode</span><span class="p">)</span> <span class="kr">public</span> <span class="nx">payable</span> <span class="nx">returns</span> <span class="p">(</span><span class="nx">address</span> <span class="nx">addr</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">require</span><span class="p">(</span><span class="nx">address</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">balance</span> <span class="o">&gt;=</span> <span class="nx">amount</span><span class="p">,</span> <span class="s2">&#34;Fonds insuffisants&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">assembly</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">addr</span> <span class="o">:=</span> <span class="nx">create2</span><span class="p">(</span><span class="nx">amount</span><span class="p">,</span> <span class="nx">add</span><span class="p">(</span><span class="nx">bytecode</span><span class="p">,</span> <span class="mh">0x20</span><span class="p">),</span> <span class="nx">mload</span><span class="p">(</span><span class="nx">bytecode</span><span class="p">),</span> <span class="nx">salt</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">require</span><span class="p">(</span><span class="nx">addr</span> <span class="o">!=</span> <span class="nx">address</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="s2">&#34;Echec du deploiement&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">emit</span> <span class="nx">Deployed</span><span class="p">(</span><span class="nx">addr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nx">computeAddress</span><span class="p">(</span><span class="nx">bytes32</span> <span class="nx">salt</span><span class="p">,</span> <span class="nx">bytes32</span> <span class="nx">bytecodeHash</span><span class="p">)</span> <span class="kr">public</span> <span class="nx">view</span> <span class="nx">returns</span> <span class="p">(</span><span class="nx">address</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">address</span><span class="p">(</span><span class="nx">uint160</span><span class="p">(</span><span class="nx">uint256</span><span class="p">(</span><span class="nx">keccak256</span><span class="p">(</span><span class="nx">abi</span><span class="p">.</span><span class="nx">encodePacked</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">bytes1</span><span class="p">(</span><span class="mh">0xff</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">address</span><span class="p">(</span><span class="k">this</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">salt</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">bytecodeHash</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)))));</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="-challenges-overview">🔍 Challenge&rsquo;s overview</h2>
+<h4 id="challengesol"><code>Challenge.sol</code></h4>
+<p>By reading the <code>Challenge</code> contract, we can see that the goal is to set <code>solved</code> to <code>true</code>. The only way to achieve this is by successfully calling <code>destroyVault(address)</code>.</p>
+<p>To call that function, we need to unlock the vault, which requires calling <code>authenticate(...)</code> with forged signatures.</p>
+<blockquote>
+<p>The <code>ecrecover()</code> function allows us to retrieve the signer of a message by providing the signed message and the signature.</p></blockquote>
+<blockquote>
+<p><strong>Malleability attack</strong>
+We can already identify a vulnerability in how <code>ecrecover()</code> is used. This function is susceptible to a <strong>malleability</strong> attack, meaning we can provide two different signatures that recover the same address. We&rsquo;ll explore this in more detail later.</p></blockquote>
+<p>From this, we know the following :</p>
+<ul>
+<li>We need to find a way to become the contract owner (e.g., by retrieving its private key).</li>
+<li>We need to list the allowed signers to ensure we are authorized.</li>
+<li>We need to verify that the contract at <code>0xDbCA158868a2701A82Fa2C7748038363eEFE07cf</code> has a <code>Key()</code> function and that it returns <code>Normandie4Ever</code>.</li>
+<li>We need to sign a message and apply the malleability attack to generate two valid signatures.</li>
+<li>Finally, we destroy the vault.</li>
+</ul>
+<h4 id="factorysol"><code>Factory.sol</code></h4>
+<p><code>Factory.sol</code> is a common contract used to deploy other contracts with the <code>create2</code> opcode.</p>
+<h2 id="-step-1--extract-the-notestxt">🌐 Step 1 : Extract the <code>notes.txt</code></h2>
+<p>From the challenge&rsquo;s description, we know that we are looking for a file at <code>/home/crepesmaster/notes.txt</code>.</p>
+<p>At this step, I was completely goofing around like an idiot, so I called my web guy, @Zleb, for help. I had forgotten to check the website&rsquo;s HTML, where a <code>display: none</code> form was hidden. This form allowed users to retrieve files directly from the filesystem.</p>
+<p>All I had to do was enter <code>/home/crepesmaster/notes.txt</code> into the form to retrieve the file.</p>
+<p><strong>notes.txt:</strong></p>
+<pre tabindex="0"><code>Quels nullos ces bretons, et dire qu&#39;ils avaient 5 signataires et qu&#39;ils sont tous tombés dans le panneau...
+
+Il faut que je mette ma clé privée quelque part sinon je vais la perdre.
+
+0x3da2b9f371d75f03e91bbbeb1da81fac34721d71a2b12bd1ae547426a4b4f559
+
+Aller, plus qu&#39;a attendre quelques jours le temps de blanchir tout cet argent. 
+
+LA BRETAGNE EST FINIE
+
+D&#39;ailleurs, je ne dois pas oublier que j&#39;ai mis en place un contrat clé qui permet de deverouiller les interactions avec mon vault :))
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract Keyy {
+    string public Key;
+
+    constructor() {
+        Key = &#34;Normandie4ever&#34;;
+    }
+}
+
+salt : 0xad0a990189248f3b99ddf7978b28654f5261b05830d2b4356927726d9528810a
+
+il n&#39;y a que moi qui sait comment je peux deployer ce contrat a la bonne adresse hehehe. Et surtout uniquement moi qui connait l&#39;adresse de ma factory :)
+
+L&#39;ADRESSE DE LA BLOCKCHAIN EST SUR LE PORT 9000
+</code></pre><p>That file contains several important pieces of information :</p>
+<ul>
+<li>The user&rsquo;s private key: <strong><code>0x3da2b9f371d75f03e91bbbeb1da81fac34721d71a2b12bd1ae547426a4b4f559</code></strong></li>
+<li>The <strong><code>Keyy</code> contract</strong>, which we will discuss later</li>
+<li>A salt: <strong><code>0xad0a990189248f3b99ddf7978b28654f5261b05830d2b4356927726d9528810a</code></strong></li>
+<li>Another website running on port <strong><code>9000</code></strong></li>
+</ul>
+<h2 id="-step-2--retrieve-the-factory-address">🏭 Step 2 : Retrieve the factory address</h2>
+<p>Going to <code>http://bybreizh-56.chall.ctf.bzh:9000/</code>, we can retrieve additional information, such as:</p>
+<ul>
+<li>The RPC endpoint: <code>http://bybreizh-56.chall.ctf.bzh:9000/rpc</code></li>
+<li>The Challenge contract&rsquo;s address: <code>0xfbEEAFDB30F30C6911063FBa83da402cD42156e0</code></li>
+</ul>
+<p>At this point, the goal is to retrieve the factory address. There are at least two ways to do this:</p>
+<ol>
+<li>Compute the address using the deployer&rsquo;s address and nonce.</li>
+<li>Retrieve it from transaction receipts.</li>
+</ol>
+<p>I personally used the second method.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">RPC</span><span class="o">=</span><span class="s2">&#34;http://bybreizh-56.chall.ctf.bzh:9000/rpc&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PK</span><span class="o">=</span><span class="s2">&#34;0x3da2b9f371d75f03e91bbbeb1da81fac34721d71a2b12bd1ae547426a4b4f559&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">TARGET</span><span class="o">=</span><span class="s2">&#34;0xfbEEAFDB30F30C6911063FBa83da402cD42156e0&#34;</span>
+</span></span></code></pre></div><ol>
+<li>Get the latest block number so I can iterate through all the blocks.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cast block  -r <span class="nv">$RPC</span> <span class="p">|</span> grep number
+</span></span><span class="line"><span class="cl"><span class="c1"># Response : </span>
+</span></span><span class="line"><span class="cl">number               <span class="m">3</span>
+</span></span></code></pre></div><ol start="2">
+<li>List the transactions.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cast block <span class="m">1</span> -r <span class="nv">$RPC</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Response : </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ...CROPPED...</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># transactions: [</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#         0x182bcc4daea89ae87484b154969fa7310e508fa6116cc81f6d64a4184212fb79]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">cast block <span class="m">2</span> -r <span class="nv">$RPC</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Response : </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ...CROPPED...</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># transactions: [</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#         0xbfabb57111d9e69036e2495dcf299e23fc93217994d19a0c3d7c71923d4e9323]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">cast block <span class="m">3</span> -r <span class="nv">$RPC</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Response : </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ...CROPPED...</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># transactions: [</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#        0xa1fd31073d0a2867b42dba30c92bf407685cc167ebecaa8ce421764a83053e2e</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ]</span>
+</span></span></code></pre></div><ol start="3">
+<li>Get the receipts for all three transactions and retrieve the <code>contractAddress</code> attribute.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cast receipt 0x182bcc4daea89ae87484b154969fa7310e508fa6116cc81f6d64a4184212fb79 -r <span class="nv">$RPC</span> <span class="p">|</span> grep contractAddress
+</span></span><span class="line"><span class="cl"><span class="c1"># No response</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">cast receipt 0xbfabb57111d9e69036e2495dcf299e23fc93217994d19a0c3d7c71923d4e9323 -r <span class="nv">$RPC</span> <span class="p">|</span> grep contractAddress
+</span></span><span class="line"><span class="cl"><span class="c1"># No response</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">cast receipt 0xa1fd31073d0a2867b42dba30c92bf407685cc167ebecaa8ce421764a83053e2e -r <span class="nv">$RPC</span> <span class="p">|</span> grep contractAddress
+</span></span><span class="line"><span class="cl"><span class="c1"># Response : </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># contractAddress         0xad4967EA626502f0b8F89dc172F2BAa13397f1e2</span>
+</span></span></code></pre></div><p>We have found the factory !</p>
+<h2 id="-step-3--deploy-the-keyy-contract">🔑 Step 3 : Deploy the Keyy contract</h2>
+<p>From the Challenge&rsquo;s <code>authenticate()</code> method, we know that the <code>keyContract</code> must respond to <code>Key()</code> with <code>Normandie4Ever</code>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">string</span> <span class="nx">memory</span> <span class="nx">key</span> <span class="o">=</span> <span class="nx">IKey</span><span class="p">(</span><span class="nx">keyContract</span><span class="p">).</span><span class="nx">Key</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nx">require</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">keccak256</span><span class="p">(</span><span class="nx">abi</span><span class="p">.</span><span class="nx">encodePacked</span><span class="p">(</span><span class="s2">&#34;Normandie4ever&#34;</span><span class="p">))</span> <span class="o">==</span> <span class="nx">keccak256</span><span class="p">(</span><span class="nx">abi</span><span class="p">.</span><span class="nx">encodePacked</span><span class="p">(</span><span class="nx">key</span><span class="p">)),</span> 
+</span></span><span class="line"><span class="cl">	<span class="s2">&#34;Invalid Key contract&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span>
+</span></span></code></pre></div><p>The problem is that the contract is not deployed.<br>
+The <code>notes.txt</code> hints us with: <em>&ldquo;il n&rsquo;y a que moi qui sais comment je peux déployer ce contrat à la bonne adresse hehehe.&rdquo;</em><br>
+And of course, there is no bytecode at that address.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cast code 0xDbCA158868a2701A82Fa2C7748038363eEFE07cf -r <span class="nv">$RPC</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Response : </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 0x            # 0x means no bytecode and no deployed contract</span>
+</span></span></code></pre></div><blockquote>
+<p>I quickly understood that I will have to deploy it using the <code>Factory</code>, the contract&rsquo;s bytecode and the salt from step 1.</p></blockquote>
+<p><strong>Remember the Keyy contract found in step 1</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// SPDX-License-Identifier: MIT
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">pragma</span> <span class="nx">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">contract</span> <span class="nx">Keyy</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">string</span> <span class="kr">public</span> <span class="nx">Key</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Key</span> <span class="o">=</span> <span class="s2">&#34;Normandie4ever&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><blockquote>
+<p>While trying to pass this step, I struggled with compilers. I tried to compile with at least five different compilers, many solidity versions and none of them gave me the same bytecode for the same contract.</p></blockquote>
+<blockquote>
+<p>@K.L.M. finally gave the actual bytecode he used to compute the hardcoded address to players, though he didn’t know where the problem was either. Even changing the filename or adding spaces/comments would change the bytecode — this is completely WTF 🤯.</p></blockquote>
+<p>Now that we have all the requirements, we are able to deploy the <code>Keyy</code> contract with the following commands.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">FACTORY</span><span class="o">=</span>0xad4967EA626502f0b8F89dc172F2BAa13397f1e2 <span class="c1"># Factory address</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">SALT</span><span class="o">=</span>0xad0a990189248f3b99ddf7978b28654f5261b05830d2b4356927726d9528810a <span class="c1"># From the notes.txt file</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">BYTECODE</span><span class="o">=</span>0x608060405234801561001057600080fd5b5060408051808201909152600e81526d2737b936b0b73234b29a32bb32b960911b602082015260009061004390826100e8565b506101a6565b634e487b7160e01b600052604160045260246000fd5b600181811c9082168061007357607f821691505b60208210810361009357634e487b7160e01b600052602260045260246000fd5b50919050565b601f8211156100e357806000526020600020601f840160051c810160208510156100c05750805b601f840160051c820191505b818110156100e057600081556001016100cc565b50505b505050565b81516001600160401b0381111561010157610101610049565b6101158161010f845461005f565b84610099565b6020601f82116001811461014957600083156101315750848201515b600019600385901b1c1916600184901b1784556100e0565b600084815260208120601f198516915b828110156101795787850151825560209485019460019092019101610159565b50848210156101975786840151600019600387901b60f8161c191681555b50505050600190811b01905550565b61019a806101b56000396000f3fe608060405234801561001057600080fd5b506004361061002b5760003560e01c8063f39d8c6514610030575b600080fd5b61003861004e565b60405161004591906100dc565b60405180910390f35b6000805461005b9061012a565b80601f01602080910402602001604051908101604052809291908181526020018280546100879061012a565b80156100d45780601f106100a9576101008083540402835291602001916100d4565b820191906000526020600020905b8154815290600101906020018083116100b757829003601f168201915b505050505081565b602081526000825180602084015260005b8181101561010a57602081860181015160408684010152016100ed565b506000604082850101526040601f19601f83011684010191505092915050565b600181811c9082168061013e57607f821691505b60208210810361015e57634e487b7160e01b600052602260045260246000fd5b5091905056fea264697066735822122044ec8427a98460fbe813a03818ae6054ddcef31b447bff71f92ff20c58c9499464736f6c634300081c0033 <span class="c1"># From the KLM hint</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">cast send <span class="nv">$FACTORY</span> <span class="s2">&#34;deploy(uint256,bytes32,bytes)&#34;</span> <span class="m">0</span> <span class="nv">$SALT</span> <span class="nv">$BYTECODE</span> -r <span class="nv">$RPC</span> --private-key <span class="nv">$PK</span>
+</span></span></code></pre></div><p>Verify that the contract is well deployed</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cast code 0xDbCA158868a2701A82Fa2C7748038363eEFE07cf -r <span class="nv">$RPC</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Response : </span>
+</span></span><span class="line"><span class="cl">0x0x60806040523480156100105760...CROPPED...4300081c0033
+</span></span></code></pre></div><h1 id="-step-4--retrieve-allowed-signers">✍ Step 4 : Retrieve allowed signers</h1>
+<p>In order to make sure we are allowed to sign a message, we need to ensure we are in the <code>allowedSigners</code> array.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="k">for</span> k in <span class="o">{</span>0..3<span class="o">}</span><span class="p">;</span> <span class="k">do</span>                                                     
+</span></span><span class="line"><span class="cl">	cast call <span class="nv">$TARGET</span> <span class="s2">&#34;allowedSigners(uint256)&#34;</span> <span class="nv">$k</span> -r RPC
+</span></span><span class="line"><span class="cl"><span class="k">done</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Response : </span>
+</span></span><span class="line"><span class="cl">0xa24b3f601c29a9d26af5c151d172ea716a23df1c <span class="c1"># This is our address</span>
+</span></span><span class="line"><span class="cl">0x7ad65dfcf42e961ba3e7d59fa4368590a65d87f2
+</span></span><span class="line"><span class="cl">0x900c6a8295c23a1e031b39604fd14789028b1899
+</span></span><span class="line"><span class="cl">0xea5511ec9df4ae6fe20e2480d7e60cfce2556f01
+</span></span></code></pre></div><p><strong>There is one good news:</strong> we are allowed to sign messages with our private key.<br>
+<strong>There is a bad news:</strong> <code>authenticate()</code> requires two different signatures.</p>
+<p>But hey, it doesn&rsquo;t require two different signers! And the <code>ecrecover()</code> function used is vulnerable to malleability attacks.</p>
+<h2 id="-step-5--malleability-attack">💥 Step 5 : Malleability attack</h2>
+<blockquote>
+<p><strong>Malleability attack</strong>
+There is a quite famous vulnerability that makes <code>ecrecover()</code> recover the same signer with two different signatures.<br>
+I won&rsquo;t dig into the cryptographic reasons behind the concept, but basically, a signature is based on three variables:</p>
+<ul>
+<li><code>r</code> (32 bytes)</li>
+<li><code>s</code> (32 bytes)</li>
+<li><code>v</code> (1 byte) — v stands for version. A valid signature can be either from version 27 or 28, making the two signatures distinct from each other. Note that <code>s</code> also changes when <code>v</code> changes.</li>
+</ul></blockquote>
+<ol>
+<li>I retrieved a random signed message from the internet because I was goofing around like an idiot and wasn&rsquo;t able to sign my own&hellip;</li>
+</ol>
+<pre tabindex="0"><code>0xcf36ac4f97dc10d91fc2cbb20d718e94a8cbfe0f82eaedc6a4aa38946fb797cd
+</code></pre><ol start="2">
+<li>I signed it to retrieve the first signature.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cast wallet sign 0xcf36ac4f97dc10d91fc2cbb20d718e94a8cbfe0f82eaedc6a4aa38946fb797cd --no-hash --private-key <span class="nv">$PK</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Response : </span>
+</span></span><span class="line"><span class="cl">0x057eb35d3f205ede93954f20a4181c7f6227bc4da26c0752f976b4727b12bd2b565b4412fc85cc9f36dab827788e5171f957da5b31be50d6bbeba9b9dab23c571c
+</span></span></code></pre></div><p><code>malleable.py</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">web3</span> <span class="kn">import</span> <span class="n">Web3</span>
+</span></span><span class="line"><span class="cl"><span class="n">signature</span> <span class="o">=</span> <span class="n">Web3</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="n">hexstr</span><span class="o">=</span><span class="s2">&#34;0x057eb35d3f205ede93954f20a4181c7f6227bc4da26c0752f976b4727b12bd2b565b4412fc85cc9f36dab827788e5171f957da5b31be50d6bbeba9b9dab23c571c&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">malleable_same_signer</span><span class="p">(</span><span class="n">signature</span><span class="p">)</span> <span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">signature</span><span class="p">)</span> <span class="o">==</span> <span class="mi">65</span><span class="p">,</span> <span class="s2">&#34;Signature should be 65 bytes&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">r</span> <span class="o">=</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">signature</span><span class="p">[:</span><span class="mh">0x20</span><span class="p">],</span> <span class="s1">&#39;big&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s</span> <span class="o">=</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">signature</span><span class="p">[</span><span class="mh">0x20</span><span class="p">:</span><span class="mh">0x40</span><span class="p">],</span> <span class="s1">&#39;big&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">v</span> <span class="o">=</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">signature</span><span class="p">[</span><span class="mh">0x40</span><span class="p">:</span><span class="mh">0x41</span><span class="p">],</span> <span class="s1">&#39;big&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">assert</span> <span class="mi">27</span> <span class="o">&lt;=</span> <span class="n">v</span> <span class="o">&lt;=</span> <span class="mi">28</span><span class="p">,</span> <span class="s2">&#34;v should be 27 or 28, nothing else&#34;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;r: </span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;s: </span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;v: </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">s_prime</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">s</span><span class="p">)</span> <span class="o">%</span> <span class="mh">0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;s_prime : </span><span class="si">{</span><span class="n">s_prime</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">v_prime</span> <span class="o">=</span> <span class="mi">27</span> <span class="k">if</span> <span class="n">v</span> <span class="o">==</span> <span class="mi">28</span> <span class="k">else</span> <span class="mi">28</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;v_prime : </span><span class="si">{</span><span class="n">v_prime</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># Create the new signature</span>
+</span></span><span class="line"><span class="cl">    <span class="n">new_signature</span> <span class="o">=</span> <span class="n">signature</span><span class="p">[:</span><span class="mh">0x20</span><span class="p">]</span> <span class="o">+</span> <span class="n">s_prime</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mh">0x20</span><span class="p">,</span> <span class="s1">&#39;big&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="nb">bytes</span><span class="p">([</span><span class="n">v_prime</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># print(f&#34;New Signature: {new_signature.hex()}&#34;)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">new_signature</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">new_signature</span> <span class="o">=</span> <span class="n">malleable_same_signer</span><span class="p">(</span><span class="n">signature</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;New malleable same signer signature 0x</span><span class="si">{</span><span class="n">new_signature</span><span class="o">.</span><span class="n">hex</span><span class="p">()</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Response : </span>
+</span></span><span class="line"><span class="cl">r: <span class="m">2485424899597514784210716504566262273560729033256209567338553620505784663339</span>
+</span></span><span class="line"><span class="cl">s: <span class="m">39060157891680103482919590924916420838513213186574676933954172474298230520919</span>
+</span></span><span class="line"><span class="cl">v: <span class="m">28</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">s_prime : <span class="m">76731931345636091940651394083771487014324351092500227448650990667219930973418</span>
+</span></span><span class="line"><span class="cl">v_prime : <span class="m">27</span>
+</span></span><span class="line"><span class="cl">New malleable same signer signature 0x057eb35d3f205ede93954f20a4181c7f6227bc4da26c0752f976b4727b12bd2ba9a4bbed037a3360c92547d88771ae8cc157028b7d8a4f6503e6b4d2f58404ea1b    
+</span></span></code></pre></div><p>At this moment, we have all the pieces to solve this challenge:</p>
+<ul>
+<li>The <code>Keyy</code> contract is deployed.</li>
+<li>We have two different signatures that return a valid signer.</li>
+<li>The signed message.</li>
+</ul>
+<p>By splitting both signatures into <code>r</code> (bytes32), <code>s</code> (bytes32), and <code>v</code> (bytes1), we obtain the following authentication command.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cast send <span class="nv">$TARGET</span> <span class="s2">&#34;authenticate(bytes32,uint8,bytes32,bytes32,uint8,bytes32,bytes32)&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>	0xcf36ac4f97dc10d91fc2cbb20d718e94a8cbfe0f82eaedc6a4aa38946fb797cd <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>	<span class="m">27</span> 0x057eb35d3f205ede93954f20a4181c7f6227bc4da26c0752f976b4727b12bd2b 0xa9a4bbed037a3360c92547d88771ae8cc157028b7d8a4f6503e6b4d2f58404ea <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>	<span class="m">28</span> 0x057eb35d3f205ede93954f20a4181c7f6227bc4da26c0752f976b4727b12bd2b 0x565b4412fc85cc9f36dab827788e5171f957da5b31be50d6bbeba9b9dab23c57  <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>	-r <span class="nv">$RPC</span> --private-key <span class="nv">$PK</span>
+</span></span></code></pre></div><h2 id="-step-6--destroy-the-vault">🏁 Step 6 : Destroy the vault</h2>
+<p>This step is a common call to a function, nothing much interesting but required to destroy the vault and solve the chall.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cast send <span class="nv">$TARGET</span> <span class="s2">&#34;destroyVault(address)&#34;</span> 0xa24b3f601C29a9d26af5C151D172ea716a23dF1c  -r <span class="nv">$RPC</span> --private-key <span class="nv">$PK</span>
+</span></span></code></pre></div><p><strong>Challenge solved</strong></p>
+<blockquote>
+<p>Note : I forgot to save the flag but I promise I flagged it&hellip; 🤡</p></blockquote>
+
+          </article>
+
+          
+          <div class="fluidity-decorative-gradient-line"></div>
+        </div>
+      </div>
+      
+      <aside id="sidebar" class="lg:block lg:col-span-1 order-1 lg:order-2"><div
+          class="sticky top-4 rounded-xl p-4
+                    relative overflow-hidden
+                    bg-gradient-to-br from-white/95 to-neutral-50/90
+                    dark:from-neutral-900/95 dark:to-neutral-800/90
+                    border border-neutral-200/80 dark:border-neutral-700/80
+                    backdrop-blur-md
+                    shadow-lg shadow-sky-100/20 dark:shadow-sky-900/20
+                    transition-all duration-300 ease-out"><div class="relative"><div id="toc">
+  <div class="flex items-center justify-between mb-2 lg:mb-4">
+    <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Table of Contents</h2>
+    <button
+      id="toc-toggle"
+      aria-label="toggle table of contents"
+      class="inline-flex items-center justify-center w-8 h-8 rounded-lg
+        bg-blue-50/90 dark:bg-blue-900/30 
+        text-blue-600 dark:text-blue-300
+        hover:bg-cyan-50/90 dark:hover:bg-cyan-900/30
+        hover:text-cyan-600 dark:hover:text-cyan-300
+        ring-1 ring-blue-100 dark:ring-blue-900/50
+        cursor-pointer
+        focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 dark:focus-visible:ring-cyan-500
+        transition-all duration-200">
+      <span class="toc-expand hidden"><svg
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="currentColor"
+  xmlns="http://www.w3.org/2000/svg"ZgotmplZZgotmplZ><path
+      d="M2 4.75C2 4.33579 2.33579 4 2.75 4H21.25C21.6642 4 22 4.33579 22 4.75C22 5.16421 21.6642 5.5 21.25 5.5H2.75C2.33579 5.5 2 5.16421 2 4.75ZM12 8.75C12 8.33579 12.3358 8 12.75 8H21.25C21.6642 8 22 8.33579 22 8.75C22 9.16421 21.6642 9.5 21.25 9.5H12.75C12.3358 9.5 12 9.16421 12 8.75ZM7.28033 19.7803C7.13968 19.921 6.94891 20 6.75 20C6.55109 20 6.36032 19.921 6.21967 19.7803L3.21967 16.7803C2.92678 16.4874 2.92678 16.0126 3.21967 15.7197C3.51256 15.4268 3.98744 15.4268 4.28033 15.7197L6 17.4393V8.75C6 8.33579 6.33579 8 6.75 8C7.16421 8 7.5 8.33579 7.5 8.75V17.4393L9.21967 15.7197C9.51256 15.4268 9.98744 15.4268 10.2803 15.7197C10.5732 16.0126 10.5732 16.4874 10.2803 16.7803L7.28033 19.7803Z" /></svg>
+</span>
+      <span class="toc-collapse"><svg
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="currentColor"
+  xmlns="http://www.w3.org/2000/svg"ZgotmplZZgotmplZ><path
+      d="M2 4.75C2 4.33579 2.33579 4 2.75 4H21.25C21.6642 4 22 4.33579 22 4.75C22 5.16421 21.6642 5.5 21.25 5.5H2.75C2.33579 5.5 2 5.16421 2 4.75ZM12 8.75C12 8.33579 12.3358 8 12.75 8H21.25C21.6642 8 22 8.33579 22 8.75C22 9.16421 21.6642 9.5 21.25 9.5H12.75C12.3358 9.5 12 9.16421 12 8.75ZM7.28033 8.21967C7.13968 8.07902 6.94891 8 6.75 8C6.55109 8 6.36032 8.07902 6.21967 8.21967L3.21967 11.2197C2.92678 11.5126 2.92678 11.9874 3.21967 12.2803C3.51256 12.5732 3.98744 12.5732 4.28033 12.2803L6 10.5607V19.25C6 19.6642 6.33579 20 6.75 20C7.16421 20 7.5 19.6642 7.5 19.25V10.5607L9.21967 12.2803C9.51256 12.5732 9.98744 12.5732 10.2803 12.2803C10.5732 11.9874 10.5732 11.5126 10.2803 11.2197L7.28033 8.21967Z" /></svg>
+</span>
+    </button>
+  </div>
+
+  
+  
+    <div class="toc-content transition-all duration-200">
+      <nav><nav id="TableOfContents">
+  <ul class='space-y-1 ml-2'>
+    <li class='py-0.5'><a class='block text-sm text-neutral-700 dark:text-neutral-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:translate-x-1 transition-all duration-200' href="#-challenges-description">📝 Challenge&rsquo;s description</a></li>
+    <li class='py-0.5'><a class='block text-sm text-neutral-700 dark:text-neutral-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:translate-x-1 transition-all duration-200' href="#-steps">🔍 Steps</a></li>
+    <li class='py-0.5'><a class='block text-sm text-neutral-700 dark:text-neutral-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:translate-x-1 transition-all duration-200' href="#-given-files">📃 Given files</a></li>
+    <li class='py-0.5'><a class='block text-sm text-neutral-700 dark:text-neutral-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:translate-x-1 transition-all duration-200' href="#-challenges-overview">🔍 Challenge&rsquo;s overview</a>
+      <ul class='space-y-1 ml-2'>
+        <li class='py-0.5'></li>
+      </ul>
+    </li>
+    <li class='py-0.5'><a class='block text-sm text-neutral-700 dark:text-neutral-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:translate-x-1 transition-all duration-200' href="#-step-1--extract-the-notestxt">🌐 Step 1 : Extract the <code>notes.txt</code></a></li>
+    <li class='py-0.5'><a class='block text-sm text-neutral-700 dark:text-neutral-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:translate-x-1 transition-all duration-200' href="#-step-2--retrieve-the-factory-address">🏭 Step 2 : Retrieve the factory address</a></li>
+    <li class='py-0.5'><a class='block text-sm text-neutral-700 dark:text-neutral-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:translate-x-1 transition-all duration-200' href="#-step-3--deploy-the-keyy-contract">🔑 Step 3 : Deploy the Keyy contract</a></li>
+  </ul>
+
+  <ul class='space-y-1 ml-2'>
+    <li class='py-0.5'><a class='block text-sm text-neutral-700 dark:text-neutral-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:translate-x-1 transition-all duration-200' href="#-step-5--malleability-attack">💥 Step 5 : Malleability attack</a></li>
+    <li class='py-0.5'><a class='block text-sm text-neutral-700 dark:text-neutral-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:translate-x-1 transition-all duration-200' href="#-step-6--destroy-the-vault">🏁 Step 6 : Destroy the vault</a></li>
+  </ul>
+</nav></nav>
+    </div>
+  
+</div>
+</div><div class="border-b border-neutral-200/60 dark:border-neutral-700/60 my-4 hidden md:block"></div><div
+            class="flex flex-wrap gap-2 justify-between text-sm text-neutral-700 dark:text-neutral-400 hidden md:flex">
+            <button
+              onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
+              class="group inline-flex items-center gap-1 py-1.5 rounded-lg cursor-pointer
+                     hover:text-sky-600 dark:hover:text-sky-400
+                     transform-gpu motion-safe:hover:-translate-y-0.5
+                     transition-all duration-300 ease-out">
+              <span
+                class="text-sky-600 dark:text-sky-400 transition-transform duration-300
+                           group-hover:scale-110 group-hover:-translate-y-0.5"><svg
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="currentColor"
+  xmlns="http://www.w3.org/2000/svg"ZgotmplZZgotmplZ><path
+      d="M12.2803 2.21967C11.9874 1.92678 11.5126 1.92678 11.2197 2.21967L6.21967 7.21967C5.92678 7.51256 5.92678 7.98744 6.21967 8.28033C6.51256 8.57322 6.98744 8.57322 7.28033 8.28033L11 4.56066V18.25C11 18.6642 11.3358 19 11.75 19C12.1642 19 12.5 18.6642 12.5 18.25V4.56066L16.2197 8.28033C16.5126 8.57322 16.9874 8.57322 17.2803 8.28033C17.5732 7.98744 17.5732 7.51256 17.2803 7.21967L12.2803 2.21967ZM5.25 20.5C4.83579 20.5 4.5 20.8358 4.5 21.25C4.5 21.6642 4.83579 22 5.25 22H18.25C18.6642 22 19 21.6642 19 21.25C19 20.8358 18.6642 20.5 18.25 20.5H5.25Z" /></svg>
+</span>
+              <span>Back to Top</span>
+            </button>
+
+
+            <button
+              id="toggle-sidebar"
+              class="group inline-flex items-center gap-1 py-1.5 rounded-lg cursor-pointer
+                     hover:text-sky-600 dark:hover:text-sky-400
+                     transform-gpu motion-safe:hover:-translate-y-0.5
+                     transition-all duration-300 ease-out">
+              <span
+                class="text-sky-600 dark:text-sky-400 transition-transform duration-300
+                           group-hover:scale-110 group-hover:rotate-12"><svg
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="currentColor"
+  xmlns="http://www.w3.org/2000/svg"ZgotmplZZgotmplZ><path
+      d="M6.75 3C4.12665 3 2 5.12665 2 7.75V14.75C2 15.9926 3.00736 17 4.25 17H4.5V8.75C4.5 6.95507 5.95507 5.5 7.75 5.5H19V5.25C19 4.00736 17.9926 3 16.75 3H6.75ZM19.2541 6.5H19.75C20.9409 6.5 21.9156 7.42516 21.9948 8.59595L22 8.75V9.75352C22 10.1677 21.6642 10.5035 21.25 10.5035C20.8703 10.5035 20.5565 10.2214 20.5068 9.85529L20.5 9.75352V8.75C20.5 8.3703 20.2178 8.05651 19.8518 8.00685L19.75 8H19.2541C18.8399 8 18.5041 7.66421 18.5041 7.25C18.5041 6.8703 18.7863 6.55651 19.1523 6.50685L19.2541 6.5ZM6.25 11.5008C6.6297 11.5008 6.94349 11.7829 6.99315 12.149L7 12.2508V14.7453C7 15.1595 6.66421 15.4953 6.25 15.4953C5.8703 15.4953 5.55651 15.2131 5.50685 14.847L5.5 14.7453V12.2508C5.5 11.8366 5.83579 11.5008 6.25 11.5008ZM6.99315 17.1435C6.94349 16.7774 6.6297 16.4953 6.25 16.4953C5.83579 16.4953 5.5 16.831 5.5 17.2453V18.25L5.50519 18.404C5.58436 19.5748 6.55914 20.5 7.75 20.5H8.25L8.35177 20.4932C8.71785 20.4435 9 20.1297 9 19.75C9 19.3358 8.66421 19 8.25 19H7.75L7.64823 18.9932C7.28215 18.9435 7 18.6297 7 18.25V17.2453L6.99315 17.1435ZM22 17.2453C22 16.831 21.6642 16.4953 21.25 16.4953C20.8358 16.4953 20.5 16.831 20.5 17.2453V18.25C20.5 18.6642 20.1642 19 19.75 19H18.7471C18.3329 19 17.9971 19.3358 17.9971 19.75C17.9971 20.1642 18.3329 20.5 18.7471 20.5H19.75C20.9926 20.5 22 19.4926 22 18.25V17.2453ZM14.7529 19H16.248C16.6622 19 16.998 19.3358 16.998 19.75C16.998 20.1297 16.7158 20.4435 16.3497 20.4932L16.248 20.5H14.7529C14.3387 20.5 14.0029 20.1642 14.0029 19.75C14.0029 19.3703 14.285 19.0565 14.6511 19.0068L14.7529 19ZM12.2463 19H10.7507L10.6489 19.0068C10.2828 19.0565 10.0007 19.3703 10.0007 19.75C10.0007 20.1642 10.3364 20.5 10.7507 20.5H12.2463L12.3481 20.4932C12.7142 20.4435 12.9963 20.1297 12.9963 19.75C12.9963 19.3358 12.6605 19 12.2463 19ZM21.9932 12.149C21.9435 11.7829 21.6297 11.5008 21.25 11.5008C20.8358 11.5008 20.5 11.8366 20.5 12.2508V14.7453L20.5068 14.847C20.5565 15.2131 20.8703 15.4953 21.25 15.4953C21.6642 15.4953 22 15.1595 22 14.7453V12.2508L21.9932 12.149ZM9.50281 7.25C9.50281 6.83579 9.16702 6.5 8.75281 6.5H7.75C6.50736 6.5 5.5 7.50736 5.5 8.75V9.75352C5.5 10.1677 5.83579 10.5035 6.25 10.5035C6.66421 10.5035 7 10.1677 7 9.75352V8.75C7 8.33579 7.33579 8 7.75 8H8.75281C9.16702 8 9.50281 7.66421 9.50281 7.25ZM15.249 6.5H16.752C17.1662 6.5 17.502 6.83579 17.502 7.25C17.502 7.6297 17.2198 7.94349 16.8537 7.99315L16.752 8H15.249C14.8348 8 14.499 7.66421 14.499 7.25C14.499 6.8703 14.7811 6.55651 15.1472 6.50685L15.249 6.5ZM12.7451 6.5H11.25L11.1482 6.50685C10.7822 6.55651 10.5 6.8703 10.5 7.25C10.5 7.66421 10.8358 8 11.25 8H12.7451L12.8469 7.99315C13.2129 7.94349 13.4951 7.6297 13.4951 7.25C13.4951 6.83579 13.1593 6.5 12.7451 6.5Z" /></svg>
+</span>
+              <span>Hide</span>
+            </button>
+
+            
+            <div class="fluidity-decorative-gradient-line"></div>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <aside id="article-aside" class="mt-4 lg:mt-12"><div class="w-fit">
+        <nav class="fluidity-tab-list flex gap-6" aria-label="Tabs" role="tablist"></nav>
+      </div>
+
+      <div class="mt-4">
+        </div>
+    </aside>
+  </div></main>
+    <footer class="relative z-50"><div
+  class="mt-16 border-t border-neutral-200/80 dark:border-neutral-800/20 
+            bg-gradient-to-b from-white/80 via-sky-50/30 to-blue-50/20
+            dark:from-neutral-900/90 dark:via-neutral-900/50 dark:to-neutral-800/30 
+            backdrop-blur-md">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-12">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 lg:gap-8">
+      
+      <div class="col-span-1 md:col-span-2">
+        <h3 class="text-lg sm:text-xl font-semibold text-neutral-900 dark:text-neutral-50 mb-4">About</h3>
+        <p class="text-slate-600 dark:text-slate-300 italic text-sm sm:text-base"></p>
+      </div>
+
+      
+      <div>
+        <h3 class="text-lg sm:text-xl font-semibold text-neutral-900 dark:text-neutral-50 mb-4">Sections</h3><ul class="space-y-2 text-slate-600 dark:text-slate-300 text-sm sm:text-base"><li>
+              <a
+                href="/posts/"
+                class="group flex items-center gap-2
+                        hover:text-sky-600 dark:hover:text-sky-300 
+                        transition-all duration-300 ease-in-out">
+                <span class="transform group-hover:translate-x-1 transition-transform duration-300">Posts</span>
+                <span
+                  class="text-sm text-neutral-500 dark:text-neutral-400
+                           group-hover:text-sky-500 dark:group-hover:text-sky-400
+                           transition-colors duration-300">
+                  (1)
+                </span>
+              </a>
+            </li></ul>
+      </div>
+
+      
+      <div>
+        <h3 class="text-lg sm:text-xl font-semibold text-neutral-900 dark:text-neutral-50 mb-4">Connect</h3>
+        <ul class="space-y-2"><li>
+    <a
+      href="/index.xml"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="group flex items-center gap-2 
+            text-slate-600 hover:text-sky-600 
+            dark:text-slate-300 dark:hover:text-sky-300 
+            transition-all duration-300 ease-in-out">
+      <span class="transform group-hover:scale-110 transition-transform duration-300"><svg
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="currentColor"
+  xmlns="http://www.w3.org/2000/svg"ZgotmplZZgotmplZ><path
+      d="M3 3C12.9411 3 21 11.0589 21 21H18C18 12.7157 11.2843 6 3 6V3ZM3 10C9.07513 10 14 14.9249 14 21H11C11 16.5817 7.41828 13 3 13V10ZM3 17C5.20914 17 7 18.7909 7 21H3V17Z"></path></svg>
+</span>
+      <span class="transform group-hover:translate-x-1 transition-transform duration-300">RSS Feed</span>
+    </a>
+  </li><li>
+    <a
+      href="https://github.com/Ne0re0"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="group flex items-center gap-2 
+            text-slate-600 hover:text-sky-600 
+            dark:text-slate-300 dark:hover:text-sky-300 
+            transition-all duration-300 ease-in-out">
+      <span class="transform group-hover:scale-110 transition-transform duration-300"><svg
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="currentColor"
+  xmlns="http://www.w3.org/2000/svg"ZgotmplZZgotmplZ><path
+      d="M12.001 2C6.47598 2 2.00098 6.475 2.00098 12C2.00098 16.425 4.86348 20.1625 8.83848 21.4875C9.33848 21.575 9.52598 21.275 9.52598 21.0125C9.52598 20.775 9.51348 19.9875 9.51348 19.15C7.00098 19.6125 6.35098 18.5375 6.15098 17.975C6.03848 17.6875 5.55098 16.8 5.12598 16.5625C4.77598 16.375 4.27598 15.9125 5.11348 15.9C5.90098 15.8875 6.46348 16.625 6.65098 16.925C7.55098 18.4375 8.98848 18.0125 9.56348 17.75C9.65098 17.1 9.91348 16.6625 10.201 16.4125C7.97598 16.1625 5.65098 15.3 5.65098 11.475C5.65098 10.3875 6.03848 9.4875 6.67598 8.7875C6.57598 8.5375 6.22598 7.5125 6.77598 6.1375C6.77598 6.1375 7.61348 5.875 9.52598 7.1625C10.326 6.9375 11.176 6.825 12.026 6.825C12.876 6.825 13.726 6.9375 14.526 7.1625C16.4385 5.8625 17.276 6.1375 17.276 6.1375C17.826 7.5125 17.476 8.5375 17.376 8.7875C18.0135 9.4875 18.401 10.375 18.401 11.475C18.401 15.3125 16.0635 16.1625 13.8385 16.4125C14.201 16.725 14.5135 17.325 14.5135 18.2625C14.5135 19.6 14.501 20.675 14.501 21.0125C14.501 21.275 14.6885 21.5875 15.1885 21.4875C19.259 20.1133 21.9999 16.2963 22.001 12C22.001 6.475 17.526 2 12.001 2Z"></path></svg>
+</span>
+      <span class="transform group-hover:translate-x-1 transition-transform duration-300">Github</span>
+    </a>
+  </li><li>
+    <a
+      href="https://x.com/Ne0re0"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="group flex items-center gap-2 
+            text-slate-600 hover:text-sky-600 
+            dark:text-slate-300 dark:hover:text-sky-300 
+            transition-all duration-300 ease-in-out">
+      <span class="transform group-hover:scale-110 transition-transform duration-300"><svg
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="currentColor"
+  xmlns="http://www.w3.org/2000/svg"ZgotmplZZgotmplZ><path
+      d="M16.8198 20.7684L3.75317 3.96836C3.44664 3.57425 3.72749 3 4.22678 3H6.70655C6.8917 3 7.06649 3.08548 7.18016 3.23164L20.2468 20.0316C20.5534 20.4258 20.2725 21 19.7732 21H17.2935C17.1083 21 16.9335 20.9145 16.8198 20.7684Z"
+      stroke="currentColor"
+      stroke-width="1.5"></path>
+    <path d="M20 3L4 21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg>
+</span>
+      <span class="transform group-hover:translate-x-1 transition-transform duration-300">X.com</span>
+    </a>
+  </li></ul>
+      </div>
+    </div>
+
+    <div class="relative flex justify-center my-4">
+      <div
+        class="absolute inset-x-0 top-1/2 h-[1px] -translate-y-1/2 bg-gradient-to-r from-transparent via-sky-200 dark:via-sky-800 to-transparent opacity-50 blur-[0.5px]"></div>
+      <span
+        class="relative z-10 rounded-full 
+                   bg-sky-50 dark:bg-neutral-900
+                   px-4 py-0.5
+                   text-neutral-600 dark:text-neutral-400 
+                   text-xs font-mono italic">
+        Site built with
+        <a
+          rel="nofollow"
+          class="underline decoration-neutral-300 
+                  hover:text-sky-600 dark:hover:text-sky-400 
+                  transition-colors duration-300"
+          target="_blank"
+          href="https://gohugo.io">
+          Hugo
+        </a>
+        &&
+        <a
+          class="underline decoration-neutral-300 
+                  hover:text-sky-600 dark:hover:text-sky-400 
+                  transition-colors duration-300"
+          rel="nofollow"
+          target="_blank"
+          href="https://github.com/wayjam/hugo-theme-fluidity">
+          Theme Fluidity
+        </a>
+      </span>
+    </div>
+
+    
+    <div class="text-center text-neutral-600 dark:text-neutral-400 font-sans text-sm sm:text-base">
+      <p>
+        &copy; 2025 Neoreo.All Rights Reserved.</p>
+    </div>
+  </div>
+</div>
+</footer>
+  </div>
+</body>
+</html>
