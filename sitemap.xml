@@ -2,14 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://blog.neoreo.fr/tags/blockchain/</loc>
+    <lastmod>2025-03-17T15:01:20+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.neoreo.fr/tags/breizhctf/</loc>
+    <lastmod>2025-03-17T15:01:20+01:00</lastmod>
+  </url><url>
     <loc>https://blog.neoreo.fr/</loc>
     <lastmod>2025-03-17T15:01:20+01:00</lastmod>
   </url><url>
     <loc>https://blog.neoreo.fr/posts/</loc>
     <lastmod>2025-03-17T15:01:20+01:00</lastmod>
   </url><url>
-    <loc>https://blog.neoreo.fr/categories/</loc>
-  </url><url>
     <loc>https://blog.neoreo.fr/tags/</loc>
+    <lastmod>2025-03-17T15:01:20+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.neoreo.fr/tags/writeup/</loc>
+    <lastmod>2025-03-17T15:01:20+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.neoreo.fr/posts/writeups/writeup-bzhctf2025-blockchain-bybreizh/</loc>
+    <lastmod>2025-03-17T15:01:20+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.neoreo.fr/categories/</loc>
   </url>
 </urlset>
