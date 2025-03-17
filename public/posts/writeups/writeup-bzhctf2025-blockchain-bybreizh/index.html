@@ -223,7 +223,7 @@ I was the only one to solve <code>ByBreizh</code> (the hardest one) and that pus
 <p>Last year, we ended <code>110/120</code> but, this time, we proudly ended <code>10/120</code> thanks to the <code>blockchain</code> category. 🚀</p>
 <p><strong>So, keep pwning !</strong></p>
 <h2 id="-challenges-description">📝 Challenge&rsquo;s description</h2>
-<p>Oh non, la plateforme ByBreizh a été hackée par un Normand nommé CrêpesMaster. Il a volé toutes les crypto-monnaies des utilisateurs. Il aurait apparement créé une plateforme nommée ByNormandie pour se moquer de nous ! D&rsquo;après les informations que nous avons, il serait possible de récupérer la clé privée de son portefeuille et d&rsquo;accéder à son contrat intelligent lui permettant de gérer ses fonds. Nous avons besoin de vous, trouvez sa clé privée en exploitant son site web et récupérez les fonds volés en exploitant les contrats intelligents que vous trouverez ci-joint. (La factory est déjà déployée, à vous de la trouver :)) La clé privée de CrêpesMaster est dans le fichier <code>/home/crepesmaster/notes.txt</code> sur le serveur web.</p>
+<p>Oh non, la plateforme ByBreizh a été hackée par un Normand nommé CrêpesMaster. Il a volé toutes les crypto-monnaies des utilisateurs. Il aurait apparement créé une plateforme nommée ByNormandie pour se moquer de nous ! D&rsquo;après les informations que nous avons, il serait possible de récupérer la clé privée de son portefeuille et d&rsquo;accéder à son contrat intelligent lui permettant de gérer ses fonds. Nous avons besoin de vous, trouvez sa clé privée en exploitant son site web et récupérez les fonds volés en exploitant les contrats intelligents que vous trouverez ci-joint. (La factory est déjà déployée, à vous de la trouver :). La clé privée de CrêpesMaster est dans le fichier <code>/home/crepesmaster/notes.txt</code> sur le serveur web.</p>
 <h2 id="-steps">🔍 Steps</h2>
 <ol>
 <li>Retrieve <code>notes.txt</code> file from the website</li>
@@ -355,7 +355,7 @@ I was the only one to solve <code>ByBreizh</code> (the hardest one) and that pus
 <blockquote>
 <p>The <code>ecrecover()</code> function allows us to retrieve the signer of a message by providing the signed message and the signature.</p></blockquote>
 <blockquote>
-<p>[!Tip] Malleability attack
+<p><strong>Malleability attack</strong>
 We can already identify a vulnerability in how <code>ecrecover()</code> is used. This function is susceptible to a <strong>malleability</strong> attack, meaning we can provide two different signatures that recover the same address. We&rsquo;ll explore this in more detail later.</p></blockquote>
 <p>From this, we know the following :</p>
 <ul>
@@ -520,13 +520,13 @@ And of course, there is no bytecode at that address.</p>
 <p>But hey, it doesn&rsquo;t require two different signers! And the <code>ecrecover()</code> function used is vulnerable to malleability attacks.</p>
 <h2 id="-step-5--malleability-attack">💥 Step 5 : Malleability attack</h2>
 <blockquote>
-<p>[!NOTE] Malleability attack
+<p><strong>Malleability attack</strong>
 There is a quite famous vulnerability that makes <code>ecrecover()</code> recover the same signer with two different signatures.<br>
 I won&rsquo;t dig into the cryptographic reasons behind the concept, but basically, a signature is based on three variables:</p>
 <ul>
 <li><code>r</code> (32 bytes)</li>
 <li><code>s</code> (32 bytes)</li>
-<li><code>v</code> (1 byte) — v stands for version. A valid signature can be either from version 27 or 28, making the two signatures distinct from each other. Note that <code>r</code> also changes when <code>v</code> changes.</li>
+<li><code>v</code> (1 byte) — v stands for version. A valid signature can be either from version 27 or 28, making the two signatures distinct from each other. Note that <code>s</code> also changes when <code>v</code> changes.</li>
 </ul></blockquote>
 <ol>
 <li>I retrieved a random signed message from the internet because I was goofing around like an idiot and wasn&rsquo;t able to sign my own&hellip;</li>

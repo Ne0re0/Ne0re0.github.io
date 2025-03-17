@@ -23,7 +23,7 @@ Last year, we ended `110/120` but, this time, we proudly ended `10/120` thanks t
 ## 📝 Challenge's description
 
 
-Oh non, la plateforme ByBreizh a été hackée par un Normand nommé CrêpesMaster. Il a volé toutes les crypto-monnaies des utilisateurs. Il aurait apparement créé une plateforme nommée ByNormandie pour se moquer de nous ! D'après les informations que nous avons, il serait possible de récupérer la clé privée de son portefeuille et d'accéder à son contrat intelligent lui permettant de gérer ses fonds. Nous avons besoin de vous, trouvez sa clé privée en exploitant son site web et récupérez les fonds volés en exploitant les contrats intelligents que vous trouverez ci-joint. (La factory est déjà déployée, à vous de la trouver :)) La clé privée de CrêpesMaster est dans le fichier `/home/crepesmaster/notes.txt` sur le serveur web.
+Oh non, la plateforme ByBreizh a été hackée par un Normand nommé CrêpesMaster. Il a volé toutes les crypto-monnaies des utilisateurs. Il aurait apparement créé une plateforme nommée ByNormandie pour se moquer de nous ! D'après les informations que nous avons, il serait possible de récupérer la clé privée de son portefeuille et d'accéder à son contrat intelligent lui permettant de gérer ses fonds. Nous avons besoin de vous, trouvez sa clé privée en exploitant son site web et récupérez les fonds volés en exploitant les contrats intelligents que vous trouverez ci-joint. (La factory est déjà déployée, à vous de la trouver :). La clé privée de CrêpesMaster est dans le fichier `/home/crepesmaster/notes.txt` sur le serveur web.
 
 
 
@@ -168,7 +168,7 @@ To call that function, we need to unlock the vault, which requires calling `auth
 
 > The `ecrecover()` function allows us to retrieve the signer of a message by providing the signed message and the signature.
 
-> [!Tip] Malleability attack
+> **Malleability attack**
 > We can already identify a vulnerability in how `ecrecover()` is used. This function is susceptible to a **malleability** attack, meaning we can provide two different signatures that recover the same address. We'll explore this in more detail later.
 > 
 
@@ -377,12 +377,12 @@ But hey, it doesn't require two different signers! And the `ecrecover()` functio
 
 ## 💥 Step 5 : Malleability attack
 
-> [!NOTE] Malleability attack
+> **Malleability attack**
 > There is a quite famous vulnerability that makes `ecrecover()` recover the same signer with two different signatures.  
 > I won't dig into the cryptographic reasons behind the concept, but basically, a signature is based on three variables:
 > - `r` (32 bytes)
 > - `s` (32 bytes)
-> - `v` (1 byte) — v stands for version. A valid signature can be either from version 27 or 28, making the two signatures distinct from each other. Note that `r` also changes when `v` changes.
+> - `v` (1 byte) — v stands for version. A valid signature can be either from version 27 or 28, making the two signatures distinct from each other. Note that `s` also changes when `v` changes.
 > 
 
 1. I retrieved a random signed message from the internet because I was goofing around like an idiot and wasn't able to sign my own...
