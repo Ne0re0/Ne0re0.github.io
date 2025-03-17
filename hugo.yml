@@ -1,0 +1,170 @@
+baseURL: https://neoreo.fr/
+languageCode: en
+defaultContentLanguage: en
+title: Neoreo
+theme: hugo-theme-fluidity
+enableRobotsTXT: true
+summaryLength: 0 # Configure how long the post summary should be on the homepage.
+hasCJKLanguage: false
+enableEmoji: true
+
+# NOTE: Required for theme-defined highlight style
+pygmentsUseClasses: true
+pygmentsCodefences: true
+
+outputs:
+  home:
+  - html
+  section:
+  - html
+  taxonomy:
+  - html
+  term:
+  - html
+
+menus:
+  # Menu: Configure the menu items on the header.
+  main:
+    - identifier: home
+      pageRef: /
+      weight: 10
+    - identifier: post
+      pageRef: /posts
+      weight: 20
+    - identifier: tag
+      pageRef: /tags
+      weight: 30
+    # - identifier: archive
+    #   pageRef: /archives
+    #   weight: 40
+    # - identifier: about
+    #   pageRef: /about
+    #   weight: 50
+    # - identifier: search
+    #   pageRef: /search
+    #   weight: 60
+
+ignoreLogs:
+  - warning-goldmark-raw-html
+markup:
+  defaultMarkdownHandler: goldmark
+  goldmark:
+    extensions:
+      passthrough:
+        enable: true
+        delimiters:
+          block:
+            - ["$$", "$$"]
+            - ["\\[", "\\]"]
+          inline:
+            - ["\\(", "\\)"]
+
+build:
+  buildStats:
+    enable: true
+  cachebusters:
+    - source: assets/notwatching/hugo_stats\.json
+      target: css
+    - source: (postcss|tailwind)\.config\.js
+      target: css
+module:
+  hugoVersion:
+    min: 0.128.0
+
+  # uncomment it if you use hugo mod
+  # imports:
+  #   - path: github.com/wayjam/hugo-theme-fluidity
+
+  mounts:
+    - source: assets
+      target: assets
+    - source: content
+      target: content
+    - source: hugo_stats.json
+      disableWatch: true
+      target: assets/notwatching/hugo_stats.json
+
+# Params: Configure the site metadata. Theme-defined params are listed below.
+params:
+  description: ''
+  # fullContentRSS: true
+
+  # main section will be listed at home page
+  mainSections:
+    - posts
+
+  # Page size
+  pageSize:
+    home: 5
+    list: 5
+    archives: 20
+
+  # Customise list pages
+  listPage:
+    # The number of categories on a page to display in the list summary.
+    numCategoriesToShow: 1
+    # The number of tags on a page to deisplay in the list summary.
+    numTagsToShow: 3
+    # Whether to show the summary of the post on the list page.
+    showSummary: false
+
+  # Social links
+  social:
+    twitter: 'Ne0re0'
+    github: 'Ne0re0'
+
+    # share:
+    #   disabled: true
+    #   disableByType: # content type
+    #     - not-exist
+    #   platforms: # available inherit platform: [redidit, x, facebook, google, telegram]
+    #     - name: reddit # inherit platform just need the name
+    #     - name: x
+    #     - name: facebook
+    #     # - name: telegram # disable the inherit platform
+    #     - name: linkedin
+    #     - name: whatsapp
+
+    #     # All Params
+    #     # {permalink}: Permalink of current entry, eg: "http://localhost/hugo-theme-fluidity/posts/markdown-syntax/".
+    #     # {title}: Title of current entry, eg: "Markdown Syntax".
+    #     # {description}: Description of current entry, eg: "Sample article showcasing basic Markdown syntax and formatting for HTML elements.".
+    #     # {via}: The X(Twitter) username which configured at site params, eg: "elonmusk".
+    #     # {user}: The account username of current platform(match).
+    #     - name: FullExample # This is a custom platform
+    #       urlPattern: "https://example.com?link={permalink}&title={title}&tags={tags}&description={description}&via={via}&user={user}"
+    connect:
+      platforms: # available inherit platform: [github, x, linkedin, whatsapp]
+        - github
+        - x
+        # - linkedin # disable the inherit platform
+        # - whatsapp
+
+  articleMetadata:
+    position: header # Can be either [header, sidebar, none].
+
+  # Table of contents
+  toc:
+    disabled: true
+
+  relatedPosts:
+    disabled: false
+    disableByType: [page]
+
+  # Comment
+  comment:
+    disabled: true
+    disableByType: [page]
+    thirdParty: |
+      your comment script will be loaded here
+
+  # Search
+  search:
+    disabled: false
+    provider: pagefind # available: google, pagefind
+
+  # Math Typesetting Support
+  math: false # global
+  mathEngine: mathJax # mathJax | katex
+
+  enableEmoji: true
