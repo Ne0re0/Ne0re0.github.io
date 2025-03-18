@@ -37,8 +37,8 @@ menus:
     # - identifier: archive
     #   pageRef: /archives
     #   weight: 40
-    # - identifier: about
-    #   pageRef: /about
+    - identifier: about
+      pageRef: /about
     #   weight: 50
     # - identifier: search
     #   pageRef: /search

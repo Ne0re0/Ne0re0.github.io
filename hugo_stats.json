@@ -484,9 +484,13 @@
       "z-[1]"
     ],
     "ids": [
+      "-about-me",
       "-challenges-description",
       "-challenges-overview",
+      "-ctf-player-for",
+      "-cyber-platforms",
       "-given-files",
+      "-socials",
       "-step-1--extract-the-notestxt",
       "-step-2--retrieve-the-factory-address",
       "-step-3--deploy-the-keyy-contract",
