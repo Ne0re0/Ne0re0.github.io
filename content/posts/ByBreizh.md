@@ -1,14 +1,16 @@
 +++
 date = '2025-03-17T15:01:20+01:00'
 draft = false
-title = 'WriteUp - Breizh CTF 2025 - Blockchain - ByBreizh'
+description= "Not an Apt participated in the BreizhCTF 2025. This write-up covers the solution of the hard blockchain challenge we encountered."
+title = '[BreizhCTF 2025] - ByBreizh'
 tags = ["Blockchain", "BreizhCTF", "WriteUp"]
+image = "/images/bzhctf2025.jpeg"
 +++
 
 
 | Difficulty | Hard               |
 | ---------- | ------------------ |
-| Flaggerz   | 1/120              |
+| Flaggerz   | 1/120 teams        |
 | Author     | K.L.M. (@clemhate) |
 
 
@@ -22,9 +24,7 @@ Last year, we ended `110/120` but, this time, we proudly ended `10/120` thanks t
 
 ## 📝 Challenge's description
 
-
 Oh non, la plateforme ByBreizh a été hackée par un Normand nommé CrêpesMaster. Il a volé toutes les crypto-monnaies des utilisateurs. Il aurait apparement créé une plateforme nommée ByNormandie pour se moquer de nous ! D'après les informations que nous avons, il serait possible de récupérer la clé privée de son portefeuille et d'accéder à son contrat intelligent lui permettant de gérer ses fonds. Nous avons besoin de vous, trouvez sa clé privée en exploitant son site web et récupérez les fonds volés en exploitant les contrats intelligents que vous trouverez ci-joint. (La factory est déjà déployée, à vous de la trouver :). La clé privée de CrêpesMaster est dans le fichier `/home/crepesmaster/notes.txt` sur le serveur web.
-
 
 
 ## 🔍 Steps

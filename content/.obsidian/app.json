@@ -1,0 +1,9 @@
+{
+  "readableLineLength": false,
+  "strictLineBreaks": true,
+  "newLinkFormat": "absolute",
+  "useMarkdownLinks": true,
+  "newFileLocation": "current",
+  "alwaysUpdateLinks": true,
+  "attachmentFolderPath": "images"
+}
